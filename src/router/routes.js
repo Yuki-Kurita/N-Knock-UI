@@ -21,7 +21,7 @@ export default [{
   component: MyKnockListView,
   meta: { requiresAuth: true }
 }, {
-  path: '/knockDetailView',
+  path: '/knockDetail',
   component: KnockDetailView
 }, {
   path: '/login',

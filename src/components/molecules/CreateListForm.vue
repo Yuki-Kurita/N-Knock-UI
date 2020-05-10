@@ -183,7 +183,11 @@ export default {
           created_at: now,
           updated_at: now
         })
-          .catch(function (err) {
+          .then(() => {
+            // MyKnockListに遷移
+            this.$router.push('/myKnockList')
+          })
+          .catch((err) => {
             console.log('Error adding list documents: ', err)
           })
       })
