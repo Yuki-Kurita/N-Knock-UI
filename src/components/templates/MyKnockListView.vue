@@ -30,11 +30,14 @@ export default {
     // マウント後に自分で作成したリストを取得
     const db = firebase.firestore()
     const uid = firebase.auth().currentUser.uid
+    let listData = {}
     db.collection('list').where('user_id', '==', uid).get()
       .then((querySnapshot) => {
         let array = []
         querySnapshot.forEach(function (doc) {
-          array.push(doc.data())
+          listData = doc.data()
+          listData.id = doc.id
+          array.push(listData)
         })
         this.lists = array
         console.log('Getting list : ', array)

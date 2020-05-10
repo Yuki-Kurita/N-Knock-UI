@@ -1,5 +1,5 @@
 <template>
-  <div class="tag-kock-list-view">
+  <div class="tag-knock-list-view">
     <Navigation/>
     <p>{{ $route.params.tagName }}</p>
     <KnockList
@@ -30,11 +30,14 @@ export default {
   created: function () {
     // マウント後にルーティングされたタグのリストを取得
     const db = firebase.firestore()
+    let listData = {}
     db.collection('list').where('tag', '==', this.$route.params.tagName).get()
       .then((querySnapshot) => {
         let array = []
         querySnapshot.forEach(function (doc) {
-          array.push(doc.data())
+          listData = doc.data()
+          listData.id = doc.id
+          array.push(listData)
         })
         this.lists = array
         console.log('Getting list : ', array)

@@ -21,9 +21,6 @@ export default [{
   component: MyKnockListView,
   meta: { requiresAuth: true }
 }, {
-  path: '/knockDetail',
-  component: KnockDetailView
-}, {
   path: '/login',
   component: LoginView
 }, {
@@ -32,6 +29,9 @@ export default [{
 }, {
   path: '/tag/:tagName',
   component: TagKnockListView
+}, {
+  path: '/knockDetail/:listid',
+  component: KnockDetailView
 }, {
   path: '*',
   redirect: '/login'

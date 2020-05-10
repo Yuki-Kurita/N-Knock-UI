@@ -1,6 +1,6 @@
 <template>
   <div class="kock-view">
-    <router-link to="/knockDetail">{{ title }}</router-link>
+    <router-link :to="{path:'/knockDetail/' + knockList.id}">{{ title }}</router-link>
     {{ explaination }}
     {{ tag }}
     {{ updated }}
