@@ -11,6 +11,7 @@
 import Navigation from '@/components/molecules/Navigation.vue'
 import KnockList from '@/components/molecules/KnockList.vue'
 import firebase from 'firebase'
+import UpdateLoginUser from '@/components/mixin/UpdateLoginUser'
 
 export default {
   name: 'TagKnockListView',
@@ -19,6 +20,7 @@ export default {
     Navigation,
     KnockList
   },
+  mixins: [UpdateLoginUser],
   data () {
     return {
       lists: []

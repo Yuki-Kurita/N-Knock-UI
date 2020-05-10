@@ -1,6 +1,6 @@
 <template>
   <div class="kock-view">
-    {{ title }}
+    <router-link to="/knockDetail">{{ title }}</router-link>
     {{ explaination }}
     {{ tag }}
     {{ updated }}

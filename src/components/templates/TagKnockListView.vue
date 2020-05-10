@@ -11,6 +11,7 @@
 <script>
 import Navigation from '@/components/molecules/Navigation.vue'
 import KnockList from '@/components/molecules/KnockList.vue'
+import UpdateLoginUser from '@/components/mixin/UpdateLoginUser'
 import firebase from 'firebase'
 
 export default {
@@ -20,6 +21,7 @@ export default {
     Navigation,
     KnockList
   },
+  mixins: [UpdateLoginUser],
   data () {
     return {
       lists: []

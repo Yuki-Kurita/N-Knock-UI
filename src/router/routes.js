@@ -4,8 +4,10 @@ import SignUpView from '@/components/templates/SignUpView.vue'
 import TagKnockListView from '@/components/templates/TagKnockListView.vue'
 import CreateListView from '@/components/templates/CreateListView.vue'
 import MyKnockListView from '@/components/templates/MyKnockListView.vue'
+import KnockDetailView from '@/components/templates/KnockDetailView'
 
-// routeの振り分け
+// routeの振り分け : Knockの閲覧だけならログインする必要はない
+// Knockの作成やいいね、save機能を使いたければログインさせる
 export default [{
   // ログイン後のページ
   path: '/',
@@ -13,12 +15,14 @@ export default [{
   meta: { requiresAuth: true }
 }, {
   path: '/createList',
-  component: CreateListView,
-  meta: { requiresAuth: true }
+  component: CreateListView
 }, {
   path: '/myKnockList',
   component: MyKnockListView,
   meta: { requiresAuth: true }
+}, {
+  path: '/knockDetailView',
+  component: KnockDetailView
 }, {
   path: '/login',
   component: LoginView
