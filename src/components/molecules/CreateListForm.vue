@@ -1,57 +1,75 @@
 <template>
   <form novalidate>
-    <!-- タイトルの入力フォーム -->
-    <div class="form-item">
-      <label for="title">タイトル</label>
-      <input
-        id="title"
-        v-model="title"
-        type="text"
-        autocomplete="off"
-        placeholder="例: Javaで文字列操作マスター"
-        @focus="resetError">
-      <ul class="validation-errors">
-        <!-- computedのvalidationに渡して、フォームチェック -->
-        <li v-if="!validation.title.format">タイトルは30文字以内で入力してください。</li>
-        <li v-if="!validation.title.required">タイトルが入力されていません。</li>
-      </ul>
+    <div class="create-list">
+      <!-- タイトルの入力フォーム -->
+      <div class="form-item">
+        <label for="title">タイトル</label>
+        <input
+          id="title"
+          v-model="title"
+          type="text"
+          autocomplete="off"
+          placeholder="例: Javaで文字列操作マスター"
+          @focus="resetError">
+        <ul class="validation-errors">
+          <!-- computedのvalidationに渡して、フォームチェック -->
+          <li v-if="!validation.title.format">タイトルは30文字以内で入力してください。</li>
+          <li v-if="!validation.title.required">タイトルが入力されていません。</li>
+        </ul>
+      </div>
+      {{ selected_tag }}
+      <div class="form-item">
+        <!-- タグ選択 -->
+        <label for="tag">タグ</label>
+        <select
+          id="tag"
+          v-model="selected_tag"
+          @focus="resetError"
+        >
+          <option
+            v-for="tag in tags"
+            :value="tag.tag_name"
+            :key="tag.id">
+            {{ tag.tag_name }}
+          </option>
+        </select>
+        <ul class="validation-errors">
+          <!-- computedのvalidationに渡して、フォームチェック -->
+          <li v-if="!validation.title.format">タイトルは30文字以内で入力してください。</li>
+          <li v-if="!validation.title.required">タイトルが入力されていません。</li>
+        </ul>
+      </div>
+      <div class="form-item">
+        <label for="explaination">実行環境</label>
+        <input
+          id="explaination"
+          v-model="explaination"
+          type="text"
+          autocomplete="off"
+          placeholder="例: JDK 8"
+          @focus="resetError">
+        <ul class="validation-errors">
+          <li v-if="!validation.explaination.format">実行環境の説明は200文字以内で入力してください</li>
+          <li v-if="!validation.explaination.required">実行環境の説明が入力されていません。</li>
+        </ul>
+      </div>
     </div>
-    {{ selected_tag }}
-    <div class="form-item">
-      <!-- タグ選択 -->
-      <label for="tag">タグ</label>
-      <select
-        id="tag"
-        v-model="selected_tag"
-        @focus="resetError"
-      >
-        <option
-          v-for="tag in tags"
-          :value="tag.tag_name"
-          :key="tag.id">
-          {{ tag.tag_name }}
-        </option>
-      </select>
-      <ul class="validation-errors">
-        <!-- computedのvalidationに渡して、フォームチェック -->
-        <li v-if="!validation.title.format">タイトルは30文字以内で入力してください。</li>
-        <li v-if="!validation.title.required">タイトルが入力されていません。</li>
-      </ul>
+    <!-- Knock作成用の入力フォーム -->
+    <div
+      v-for="n of counter"
+      :key="n">
+      <InputKnockForm
+        :reset-error="resetError"
+        :error="error"
+        :knocks="knocks"
+        :id="n"
+        @finish-input="knockHandler"
+      />
     </div>
-    <div class="form-item">
-      <label for="explaination">実行環境</label>
-      <input
-        id="explaination"
-        v-model="explaination"
-        type="text"
-        autocomplete="off"
-        placeholder="例: JDK 8"
-        @focus="resetError">
-      <ul class="validation-errors">
-        <li v-if="!validation.explaination.format">実行環境の説明は200文字以内で入力してください</li>
-        <li v-if="!validation.explaination.required">実行環境の説明が入力されていません。</li>
-      </ul>
-    </div>
+    <!-- ボタンを押すたびにcounterが+1されてInputKnockFormコンポーネントが追加される -->
+    <button @click="addQuiz">
+      問題を追加
+    </button>
     <div class="form-actions">
       <!-- 入力条件を満たさないとdisabledスタイルが適用される -->
       <CreateButton
@@ -79,6 +97,7 @@
 <script>
 // LoginButtonをインポート
 import CreateButton from '@/components/atoms/CreateButton.vue'
+import InputKnockForm from '@/components/atoms/InputKnockForm.vue'
 import firebase from 'firebase'
 // 空白文字以外がフォームに入力されたかどうかをチェック、!!はBoleanに変換
 const required = val => !!val.trim()
@@ -89,7 +108,8 @@ export default {
   name: 'CreateListForm',
 
   components: {
-    CreateButton
+    CreateButton,
+    InputKnockForm
   },
 
   data () {
@@ -99,7 +119,9 @@ export default {
       progress: false,
       error: '',
       tags: [],
-      selected_tag: ''
+      selected_tag: '',
+      knocks: {},
+      counter: 3
     }
   },
 
@@ -188,9 +210,23 @@ export default {
             this.$router.push('/myKnockList')
           })
           .catch((err) => {
+            this.error = err.message
+            this.progress = false
             console.log('Error adding list documents: ', err)
           })
       })
+    },
+    addQuiz () {
+      this.counter += 1
+    },
+    // 子コンポーネント(InputKnockForm)からフォーム入力が完了した時に呼ばれる
+    knockHandler (id, quiz, answer) {
+      this.knocks[String(id)] = {
+        'quiz': quiz,
+        'answer': answer
+      }
+      console.log(id, quiz, answer)
+      console.log(this.knocks)
     }
   }
 }
