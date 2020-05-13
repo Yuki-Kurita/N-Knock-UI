@@ -1,9 +1,13 @@
 <template>
   <div class="knock-detail-view">
     <Navigation/>
-    <!-- Knockとリストを表示 -->
-    {{ list }}
-    {{ knocks }}
+    <!-- リストを表示 -->
+    <ListPreview
+      :list="list"
+    />
+    <KnockPreview
+      :knocks="knocks"
+    />
   </div>
 </template>
 
@@ -11,12 +15,16 @@
 import Navigation from '@/components/molecules/Navigation.vue'
 import firebase from 'firebase'
 import UpdateLoginUser from '@/components/mixin/UpdateLoginUser'
+import ListPreview from '@/components/molecules/ListPreview'
+import KnockPreview from '@/components/molecules/KnockPreview'
 
 export default {
   name: 'KnockDetailView',
 
   components: {
-    Navigation
+    Navigation,
+    ListPreview,
+    KnockPreview
   },
   mixins: [UpdateLoginUser],
   data () {
@@ -44,11 +52,7 @@ export default {
     // route.paramsからlistの情報を取得してStoreに登録
     db.collection('list').doc(this.$route.params.listid)
       .get().then((doc) => {
-        this.list['explaination'] = doc.data().explaination
-        this.list['tag'] = doc.data().tag
-        this.list['title'] = doc.data().title
-        this.list['updated_at'] = doc.data().updated_at
-        this.list['user_id'] = doc.data().user_id
+        this.list = doc.data()
         this.$store.dispatch('updateList', this.list)
       })
       .catch((err) => {
