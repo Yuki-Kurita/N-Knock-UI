@@ -208,7 +208,9 @@ export default {
           .then((doc) => {
             // list追加後、document_idを用いてknock追加
             for (let key in this.knocks) {
+              console.log(key)
               db.collection('knock').add({
+                id: key,
                 list_id: doc.id,
                 quiz: this.knocks[key]['quiz'],
                 answer: this.knocks[key]['answer']

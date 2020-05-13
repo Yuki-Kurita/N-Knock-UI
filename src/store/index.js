@@ -10,7 +10,9 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     email: '',
-    auth: false
+    auth: false,
+    list: {},
+    knocks: []
   },
   getters,
   actions,

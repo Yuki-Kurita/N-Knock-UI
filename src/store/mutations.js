@@ -12,5 +12,12 @@ export default{
   [types.AUTH_LOGOUT] (state) {
     state.email = ''
     state.auth = false
+  },
+
+  [types.UPDATE_LIST] (state, list) {
+    state.list = list
+  },
+  [types.UPDATE_KNOCKS] (state, knocks) {
+    state.knocks = knocks
   }
 }

@@ -33,5 +33,13 @@ export default {
     firebase.auth().signOut().then(() => {
       ctx.commit(types.AUTH_LOGOUT)
     })
+  },
+  updateList: (ctx, list) => {
+    console.log('update list')
+    ctx.commit(types.UPDATE_LIST, list)
+  },
+  updateKnocks: (ctx, knocks) => {
+    console.log('update knocks')
+    ctx.commit(types.UPDATE_KNOCKS, knocks)
   }
 }
