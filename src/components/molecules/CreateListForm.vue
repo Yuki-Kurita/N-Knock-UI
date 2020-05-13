@@ -205,8 +205,16 @@ export default {
           created_at: now,
           updated_at: now
         })
-          .then(() => {
-            // MyKnockListに遷移
+          .then((doc) => {
+            // list追加後、document_idを用いてknock追加
+            for (let key in this.knocks) {
+              db.collection('knock').add({
+                list_id: doc.id,
+                quiz: this.knocks[key]['quiz'],
+                answer: this.knocks[key]['answer']
+              })
+            }
+            // Knock作成完了後、MyKnockListに遷移
             this.$router.push('/myKnockList')
           })
           .catch((err) => {
@@ -225,8 +233,6 @@ export default {
         'quiz': quiz,
         'answer': answer
       }
-      console.log(id, quiz, answer)
-      console.log(this.knocks)
     }
   }
 }
