@@ -10,7 +10,13 @@
       :knocks="knocks"
     />
     <!-- 編集するボタンを表示 -->
-    <!-- <EditListButton/> -->
+    <div v-if="isshow">
+      <EditListButton
+        @edit-event="editList"
+      >
+        削除する
+      </EditListButton>
+    </div>
     <!-- 削除するボタンを表示 -->
     <div v-if="isshow">
       <RemoveListButton
@@ -111,6 +117,10 @@ export default {
         .catch((err) => {
           console.log('Error getting knock doc id : ', err)
         })
+    },
+    editList () {
+      // EditListButtonを押した際に発火、編集ページへ遷移
+      this.$router.push('/editKnockList') // paramとしてlistidを含ませたい
     }
   }
 }
