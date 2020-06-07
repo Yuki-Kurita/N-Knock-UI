@@ -2,7 +2,7 @@
   <div class="nkock-view">
     <Navigation/>
     <p>ログインしました</p>
-    <p>{{ email }}</p>
+    <p>{{ userName }}</p>
     <div
       v-for="tag in tags"
       :key="tag.tag_name"
@@ -14,7 +14,7 @@
 
 <script>
 import Navigation from '@/components/molecules/Navigation.vue'
-import UpdateLoginUser from '@/components/mixin/UpdateLoginUser.vue'
+// import UpdateLoginUser from '@/components/mixin/UpdateLoginUser.vue'
 import firebase from 'firebase'
 
 export default {
@@ -22,16 +22,16 @@ export default {
   components: {
     Navigation
   },
-  mixins: [UpdateLoginUser],
+  // mixins: [UpdateLoginUser],
   data () {
     return {
       tags: []
     }
   },
   computed: {
-    // getterdでemailを取得
-    email: function () {
-      return this.$store.getters.loginEmail
+    // gettersでemailを取得
+    userName: function () {
+      return this.$store.getters.loginName
     }
   },
   // タグ(プログラミング言語)を全取得

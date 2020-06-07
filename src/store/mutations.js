@@ -12,6 +12,7 @@ export default{
 
   [types.AUTH_LOGOUT] (state) {
     state.email = ''
+    state.userName = ''
     state.auth = false
   },
 

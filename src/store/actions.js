@@ -6,14 +6,24 @@ import axios from 'axios'
 export default {
   // KbnLoginViewから呼び出される AUTH_LOGIN mutationを実行
   login: (ctx, authInfo) => {
-    // firebaseでログイン認証
-    // mutationを実行
-    console.log('mutation login')
-    ctx.commit(types.AUTH_LOGIN, authInfo.email)
+    // APIからユーザ名を取得
+    axios.get(api.USERPREFIX, {
+      params: {
+        email: authInfo.email
+      }
+    })
+      .then((response) => {
+        console.log(response)
+        authInfo.userName = response.data.userName
+        ctx.commit(types.AUTH_LOGIN, authInfo)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   },
 
   signUp: (ctx, authInfo) => {
-    console.log('mutation signup' + authInfo.userName)
+    console.log('mutation signup : ' + authInfo.userName)
     // APIにユーザ情報を登録
     axios.post(api.USERPREFIX, {
       email: authInfo.email,

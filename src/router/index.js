@@ -8,7 +8,7 @@ Vue.use(Router)
 // routes.jsを読み込んでRouterインスタンス作成
 const router = new Router({ routes })
 
-// ログイン時のuthenticationの設定をする
+// ログイン時のAuthenticationの設定をする
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
   // firebaseを通してログインしているか認証
