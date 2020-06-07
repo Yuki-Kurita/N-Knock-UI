@@ -78,6 +78,10 @@ export default {
     onlogin: {
       type: Function,
       required: true
+    },
+    resetSignUpErrorMessage: {
+      type: Function,
+      required: true
     }
   },
 
@@ -135,6 +139,7 @@ export default {
     // フォームにfocusされた時にエラー文を消す
     resetError () {
       this.error = ''
+      this.resetSignUpErrorMessage()
     },
     // ログインボタンを押した時に発火
     handleClick (ev) {

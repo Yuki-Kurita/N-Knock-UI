@@ -52,8 +52,7 @@
       >
         {{ error }}
       </p>
-    </div>
-  </form>
+  </div></form>
 </template>
 
 <script>
@@ -73,6 +72,10 @@ export default {
 
   props: {
     onlogin: {
+      type: Function,
+      required: true
+    },
+    resetLoginErrorMessage: {
       type: Function,
       required: true
     }
@@ -131,6 +134,7 @@ export default {
     // フォームにfocusされた時にエラー文を消す
     resetError () {
       this.error = ''
+      this.resetLoginErrorMessage()
     },
     // ログインボタンを押した時に発火
     handleClick (ev) {

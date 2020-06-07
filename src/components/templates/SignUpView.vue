@@ -1,22 +1,19 @@
 <template>
   <div class="login-view">
     <h1>SignUp</h1>
-    {{ signUpError }}
+    <div class="signUpError">{{ signUpError }}</div>
     <!-- Functionを子コンポーネントへ伝播させる -->
-    <SignUpForm :onlogin="handleLogin" />
+    <SignUpForm
+      :onlogin="handleLogin"
+      :reset-sign-up-error-message="resetSignUpError"
+    />
     <router-link to="/login">login</router-link>
-    <button
-      @click="signUpTest"
-    >
-      test
-    </button>
   </div>
 </template>
 
 <script>
 import SignUpForm from '@/components/molecules/SignUpForm.vue'
 import firebase from 'firebase'
-import * as api from '../api-types'
 
 export default {
   name: 'SignUpView',
@@ -46,7 +43,6 @@ export default {
         })
         // ユーザ名・Emailが被っていないかValidation
         .catch(err => {
-          console.log(err.code)
           if (err.code === 'auth/email-already-in-use') {
             this.signUpError = '入力されたメールアドレスは既に使われています'
           } else if (err.code === 'auth/invalid-email') {
@@ -56,21 +52,8 @@ export default {
           }
         })
     },
-    signUpTest () {
-      this.axios.post(api.USERPREFIX, {
-        email: 'email',
-        fireId: 'testid',
-        userName: 'email'
-      })
-        .then((response) => {
-          console.log('success!!')
-          console.log(response)
-        })
-        .catch((err) => {
-          // サーバエラー、ログにも残したい
-          console.log('faiture...')
-          alert(err)
-        })
+    resetSignUpError () {
+      this.signUpError = ''
     }
   }
 }
