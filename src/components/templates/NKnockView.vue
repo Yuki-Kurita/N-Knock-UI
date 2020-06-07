@@ -14,7 +14,7 @@
 
 <script>
 import Navigation from '@/components/molecules/Navigation.vue'
-// import UpdateLoginUser from '@/components/mixin/UpdateLoginUser.vue'
+import UpdateLoginUser from '@/components/mixin/UpdateLoginUser.vue'
 import firebase from 'firebase'
 
 export default {
@@ -22,7 +22,7 @@ export default {
   components: {
     Navigation
   },
-  // mixins: [UpdateLoginUser],
+  mixins: [UpdateLoginUser],
   data () {
     return {
       tags: []
