@@ -1,5 +1,7 @@
 import * as types from './mutation-types'
 import firebase from 'firebase'
+import * as api from '../components/api-types'
+import axios from 'axios'
 
 export default {
   // KbnLoginViewから呼び出される AUTH_LOGIN mutationを実行
@@ -9,20 +11,25 @@ export default {
     console.log('mutation login')
     ctx.commit(types.AUTH_LOGIN, authInfo.email)
   },
+
   signUp: (ctx, authInfo) => {
-    console.log('mutation signup')
-    // SignUp成功時の処理
-    const db = firebase.firestore()
-    // usersコレクションにデータを追加
-    db.collection('users').add({
-      id: authInfo.id,
+    console.log('mutation signup' + authInfo.userName)
+    // APIにユーザ情報を登録
+    axios.post(api.USERPREFIX, {
       email: authInfo.email,
-      name: authInfo.email.split('@')[0]
+      fireId: authInfo.id,
+      userName: authInfo.userName
     })
-      .catch(function (err) {
-        console.log('Error adding users documents: ', err)
+      .then((response) => {
+        console.log(response)
+        // ログインユーザ情報の更新
+        ctx.commit(types.AUTH_LOGIN, authInfo)
       })
-    ctx.commit(types.AUTH_LOGIN, authInfo.email)
+      .catch((err) => {
+        // サーバエラー、ログにも残したい
+        console.log('faiture...')
+        alert(err)
+      })
   },
   updateAuth: (ctx, email) => {
     console.log('updateAuth')

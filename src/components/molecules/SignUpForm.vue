@@ -29,6 +29,7 @@
         @focus="resetError">
       <ul class="validation-errors">
         <li v-if="!validation.password.required">パスワードが入力されていません。</li>
+        <li v-if="!validation.password.format">パスワードは8文字以上100文字以下、半角英字と数字を含ませてください</li>
       </ul>
     </div>
     <div class="form-actions">
@@ -61,6 +62,8 @@
 import LoginButton from '@/components/atoms/LoginButton.vue'
 // メールアドレスのフォーマットをチェックする正規表現
 const REGEX_EMAIL = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+// Passwordは8文字以上100文字以下、半角英字、数字を含む
+const REGEX_PASSWORD = /^(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,100}$/i
 // 空白文字以外がフォームに入力されたかどうかをチェック、!!はBoleanに変換
 const required = val => !!val.trim()
 
@@ -98,7 +101,8 @@ export default {
           format: REGEX_EMAIL.test(this.email)
         },
         password: {
-          required: required(this.password)
+          required: required(this.password),
+          format: REGEX_PASSWORD.test(this.password)
         }
       }
     },

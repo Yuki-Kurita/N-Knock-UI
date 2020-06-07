@@ -3,9 +3,10 @@ import * as types from './mutation-types'
 
 export default{
   // 定数を関数名として利用できる
-  [types.AUTH_LOGIN] (state, email) {
+  [types.AUTH_LOGIN] (state, authInfo) {
     // firebaseが返したuser情報
-    state.email = email
+    state.email = authInfo.email
+    state.userName = authInfo.userName
     state.auth = true
   },
 
