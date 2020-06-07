@@ -4,6 +4,7 @@
       <router-link to="/createList">作成する</router-link>
       <router-link to="/">タグから探す</router-link>
       <router-link to="/myKnockList">My Knock</router-link>
+      <router-link to="userEdit">{{ userName }}</router-link>
       <a @click="logout">logout</a>
     </nav>
   </div>
@@ -12,6 +13,12 @@
 <script>
 export default {
   name: 'Navigation',
+  computed: {
+    // gettersでemailを取得
+    userName: function () {
+      return this.$store.getters.loginUserName
+    }
+  },
   methods: {
     logout () {
       // vuexのlogoutアクションを呼び出す

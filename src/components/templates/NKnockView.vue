@@ -2,7 +2,6 @@
   <div class="nkock-view">
     <Navigation/>
     <p>ログインしました</p>
-    <p>{{ userName }}</p>
     <div
       v-for="tag in tags"
       :key="tag.tag_name"
@@ -26,12 +25,6 @@ export default {
   data () {
     return {
       tags: []
-    }
-  },
-  computed: {
-    // gettersでemailを取得
-    userName: function () {
-      return this.$store.getters.loginUserName
     }
   },
   // タグ(プログラミング言語)を全取得
