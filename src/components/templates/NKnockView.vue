@@ -31,7 +31,7 @@ export default {
   computed: {
     // gettersでemailを取得
     userName: function () {
-      return this.$store.getters.loginName
+      return this.$store.getters.loginUserName
     }
   },
   // タグ(プログラミング言語)を全取得

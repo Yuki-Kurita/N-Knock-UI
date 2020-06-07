@@ -1,9 +1,12 @@
 <template>
   <div class="login-view">
-    {{ loginError }}
     <h1>Login</h1>
+    <div class="loginError">{{ loginError }}</div>
     <!-- Functionを子コンポーネントへ伝播させる -->
-    <LoginForm :onlogin="handleLogin" />
+    <LoginForm
+      :onlogin="handleLogin"
+      :reset-login-error-message="resetLoginError"
+    />
     <router-link to="/signup">Sign Up</router-link>
   </div>
 </template>
@@ -46,6 +49,9 @@ export default {
             this.loginError = 'パスワードが間違っています。正しいパスワードを入力してください'
           }
         })
+    },
+    resetLoginError () {
+      this.loginError = ''
     }
   }
 }

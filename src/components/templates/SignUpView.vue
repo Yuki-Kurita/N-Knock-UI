@@ -1,9 +1,12 @@
 <template>
   <div class="login-view">
     <h1>SignUp</h1>
-    {{ signUpError }}
+    <div class="signUpError">{{ signUpError }}</div>
     <!-- Functionを子コンポーネントへ伝播させる -->
-    <SignUpForm :onlogin="handleLogin" />
+    <SignUpForm
+      :onlogin="handleLogin"
+      :reset-sign-up-error-message="resetSignUpError"
+    />
     <router-link to="/login">login</router-link>
   </div>
 </template>
@@ -48,6 +51,9 @@ export default {
             this.signUpError = 'このメールアドレス/パスワードは利用できません。申し訳ございませんが別のメールアドレス/パスワードを入力してください'
           }
         })
+    },
+    resetSignUpError () {
+      this.signUpError = ''
     }
   }
 }
