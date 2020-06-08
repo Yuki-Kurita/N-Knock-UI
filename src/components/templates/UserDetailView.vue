@@ -1,21 +1,31 @@
 <template>
   <div class="user-detail-view">
+    <Navigation/>
     <h1>ユーザ詳細</h1>
-    <div class="email">{{ email }}</div>
-    <div class="user-name">{{ userName }}</div>
+    <div class="email">Email : {{ email }}</div>
+    <div class="user-name">Your Name : {{ userName }}</div>
     <router-link to="userEdit">編集する</router-link>
   </div>
 </template>
 
 <script>
+import Navigation from '@/components/molecules/Navigation.vue'
+import UpdateLoginUser from '@/components/mixin/UpdateLoginUser.vue'
 
 export default {
   name: 'UserDetailView',
 
-  data () {
-    return {
-      email: this.$store.getters.loginUserEmail,
-      userName: this.$store.state.loginUserName
+  components: {
+    Navigation
+  },
+  mixins: [UpdateLoginUser],
+  computed: {
+    // gettersでemailを取得
+    userName: function () {
+      return this.$store.getters.loginUserName
+    },
+    email: function () {
+      return this.$store.getters.loginUserEmail
     }
   }
 }

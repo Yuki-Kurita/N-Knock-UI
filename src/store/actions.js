@@ -41,9 +41,8 @@ export default {
         alert(err)
       })
   },
-  updateAuth: (ctx, email) => {
-    console.log('updateAuth')
-    ctx.commit(types.AUTH_LOGIN, email)
+  updateAuth: (ctx, userName) => {
+    ctx.commit(types.AUTH_UPDATE, userName)
   },
   logout: (ctx) => {
     // firebaseでログアウトを行う
