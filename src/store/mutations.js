@@ -10,6 +10,11 @@ export default{
     state.auth = true
   },
 
+  [types.AUTH_UPDATE] (state, userName) {
+    state.userName = userName
+    state.auth = true
+  },
+
   [types.AUTH_LOGOUT] (state) {
     state.email = ''
     state.userName = ''
