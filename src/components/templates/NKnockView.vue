@@ -1,7 +1,6 @@
 <template>
   <div class="nkock-view">
     <Navigation/>
-    <p>ログインしました</p>
     <KnockLists
       :knock-lists="knockListGroup"
     />
