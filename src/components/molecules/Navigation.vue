@@ -2,7 +2,7 @@
   <div>
     <nav>
       <router-link to="/createList">作成する</router-link>
-      <router-link to="/">タグから探す</router-link>
+      <router-link to="/">HOME</router-link>
       <router-link to="/myKnockList">My Knock</router-link>
       <router-link to="userDetail">{{ userName }}</router-link>
       <a @click="logout">logout</a>

@@ -1,7 +1,7 @@
 <template>
   <div class="My-kock-list-view">
     <Navigation/>
-    <KnockList
+    <KnockLists
       :knock-lists="lists"
     />
   </div>
@@ -9,7 +9,7 @@
 
 <script>
 import Navigation from '@/components/molecules/Navigation.vue'
-import KnockList from '@/components/molecules/KnockList.vue'
+import KnockLists from '@/components/molecules/KnockLists.vue'
 import firebase from 'firebase'
 import UpdateLoginUser from '@/components/mixin/UpdateLoginUser'
 
@@ -18,7 +18,7 @@ export default {
 
   components: {
     Navigation,
-    KnockList
+    KnockLists
   },
   mixins: [UpdateLoginUser],
   data () {

@@ -2,9 +2,9 @@
   <div class="kock-list-view">
     <div
       v-for="knockList in knockLists"
-      :key="knockList.id"
+      :key="knockList.knockListId"
     >
-      <Knock
+      <KnockList
         :knock-list="knockList"
       />
     </div>
@@ -12,13 +12,12 @@
 </template>
 
 <script>
-import Knock from '@/components/atoms/Knock.vue'
+import KnockList from '../atoms/KnockList.vue'
 
 export default {
-  name: 'KnockList',
-
+  name: 'KnockLists',
   components: {
-    Knock
+    KnockList
   },
   props: {
     knockLists: {

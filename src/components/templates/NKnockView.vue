@@ -2,42 +2,39 @@
   <div class="nkock-view">
     <Navigation/>
     <p>ログインしました</p>
-    <div
-      v-for="tag in tags"
-      :key="tag.tag_name"
-    >
-      <router-link :to="{path:'/tag/' + tag.tag_name}">{{ tag.tag_name }}</router-link>
-    </div>
+    <KnockLists
+      :knock-lists="knockListGroup"
+    />
   </div>
 </template>
 
 <script>
 import Navigation from '@/components/molecules/Navigation.vue'
 import UpdateLoginUser from '@/components/mixin/UpdateLoginUser.vue'
-import firebase from 'firebase'
+import * as api from '@/components/api-types'
+import KnockLists from '@/components/molecules/KnockLists.vue'
 
 export default {
   name: 'NKnockView',
   components: {
-    Navigation
+    Navigation,
+    KnockLists
   },
   mixins: [UpdateLoginUser],
   data () {
     return {
-      tags: []
+      knockListGroup: []
     }
   },
-  // タグ(プログラミング言語)を全取得
+  // ノックリストを全取得
   mounted: function () {
-    // マウント後にFirestoreのオブジェクト取得
-    const db = firebase.firestore()
-    db.collection('tags').get()
-      .then((querySnapshot) => {
-        let array = []
-        querySnapshot.forEach(function (doc) {
-          array.push(doc.data())
-        })
-        this.tags = array
+    this.axios.get(api.KNOCKLISTPREFIX + '/all')
+      .then((response) => {
+        console.log('response : ', response.data.knockLists)
+        this.knockListGroup = response.data.knockLists
+      })
+      .catch((err) => {
+        console.log(err)
       })
   }
 }

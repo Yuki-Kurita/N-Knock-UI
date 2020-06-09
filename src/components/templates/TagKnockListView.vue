@@ -2,7 +2,7 @@
   <div class="tag-knock-list-view">
     <Navigation/>
     <p>{{ $route.params.tagName }}</p>
-    <KnockList
+    <KnockLists
       :knock-lists="lists"
     />
   </div>
@@ -10,7 +10,7 @@
 
 <script>
 import Navigation from '@/components/molecules/Navigation.vue'
-import KnockList from '@/components/molecules/KnockList.vue'
+import KnockLists from '@/components/molecules/KnockLists.vue'
 import UpdateLoginUser from '@/components/mixin/UpdateLoginUser'
 import firebase from 'firebase'
 
@@ -19,7 +19,7 @@ export default {
 
   components: {
     Navigation,
-    KnockList
+    KnockLists
   },
   mixins: [UpdateLoginUser],
   data () {
