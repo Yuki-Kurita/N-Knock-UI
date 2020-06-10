@@ -37,7 +37,7 @@ export default {
   data () {
     return {
       tags: [],
-      selectedTag: '',
+      selectedTag: null,
       searchWord: ''
     }
   },
@@ -56,12 +56,25 @@ export default {
 
   methods: {
     searchKnockList () {
-      // タグとワードでノックリストを取得
-      let searchInfo = {
-        knockListName: this.searchWord,
-        tagId: this.tagId
+      if (this.selectedTag === '') {
+        this.selectedTag = 0
       }
-      this.$store.dispatch('getKnockList', searchInfo)
+      // タグとワードでノックリストを取得
+      this.axios.get(api.KNOCKLISTPREFIX + '/search', {
+        params: {
+          knockListName: this.searchWord,
+          tagId: this.selectedTag
+        }
+      })
+        .then((response) => {
+          // stateに情報を更新する
+          console.log('getknocklist!!', response.data.knockLists)
+          this.$store.dispatch('getKnockList', response.data.knockLists)
+          this.$router.push('/searchResult', () => {}, () => {})
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     }
   }
 }

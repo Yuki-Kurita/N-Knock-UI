@@ -7,5 +7,9 @@ export default{
   // ログインユーザのemailを取得
   loginUserEmail: (state) => {
     return state.email
+  },
+
+  searchKnockLists: (state) => {
+    return state.knockLists
   }
 }
