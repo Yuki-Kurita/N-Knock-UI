@@ -24,9 +24,15 @@ export default {
       knockListGroup: []
     }
   },
-  // stateから、検索結果対象のノックリストを全取得
-  mounted: function () {
-    this.knockListGroup = this.$store.getters.searchKnockLists
+  computed: {
+    getKnockLists () {
+      return this.$store.getters.searchKnockLists
+    }
+  },
+  watch: {
+    getKnockLists (val, old) {
+      this.knockListGroup = val
+    }
   }
 }
 </script>
