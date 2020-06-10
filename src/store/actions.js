@@ -57,5 +57,21 @@ export default {
   updateKnocks: (ctx, knocks) => {
     console.log('update knocks')
     ctx.commit(types.UPDATE_KNOCKS, knocks)
+  },
+  getKnockList: (ctx, searchInfo) => {
+    axios.get(api.KNOCKLISTPREFIX + '/search', {
+      params: {
+        knockListName: searchInfo.searchWord,
+        tagId: searchInfo.selectedTag
+      }
+    })
+      .then((response) => {
+        // stateに情報を更新する
+        console.log('getknocklist', response.data.knockLists)
+        ctx.commit(types.GET_KNOCKLIST, response.data.knockLists)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
 }

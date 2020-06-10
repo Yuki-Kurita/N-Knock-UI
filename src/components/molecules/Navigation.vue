@@ -1,6 +1,7 @@
 <template>
   <div>
     <nav>
+      <SearchForm/>
       <router-link to="/createList">作成する</router-link>
       <router-link to="/">HOME</router-link>
       <router-link to="/myKnockList">My Knock</router-link>
@@ -11,8 +12,15 @@
 </template>
 
 <script>
+import SearchForm from '@/components/atoms/SearchForm.vue'
+
 export default {
   name: 'Navigation',
+
+  components: {
+    SearchForm
+  },
+
   computed: {
     // gettersでemailを取得
     userName: function () {
