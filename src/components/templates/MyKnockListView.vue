@@ -1,49 +1,47 @@
 <template>
   <div class="My-kock-list-view">
     <Navigation/>
-    <KnockList
-      :knock-lists="lists"
+    <KnockLists
+      :knock-lists="knockLists"
     />
   </div>
 </template>
 
 <script>
 import Navigation from '@/components/molecules/Navigation.vue'
-import KnockList from '@/components/molecules/KnockList.vue'
+import KnockLists from '@/components/molecules/KnockLists.vue'
 import firebase from 'firebase'
 import UpdateLoginUser from '@/components/mixin/UpdateLoginUser'
+import * as api from '@/components/api-types'
 
 export default {
   name: 'TagKnockListView',
 
   components: {
     Navigation,
-    KnockList
+    KnockLists
   },
   mixins: [UpdateLoginUser],
   data () {
     return {
-      lists: []
+      knockLists: []
     }
   },
   created: function () {
-    // マウント後に自分で作成したリストを取得
-    const db = firebase.firestore()
-    const uid = firebase.auth().currentUser.uid
-    let listData = {}
-    db.collection('list').where('user_id', '==', uid).get()
-      .then((querySnapshot) => {
-        let array = []
-        querySnapshot.forEach(function (doc) {
-          listData = doc.data()
-          listData.id = doc.id
-          array.push(listData)
-        })
-        this.lists = array
-        console.log('Getting list : ', array)
+    // 自身のuid(fireId)に一致するノックリストを取得
+    let firebaseId = firebase.auth().currentUser.uid
+    console.log(firebaseId)
+    this.axios.get(api.KNOCKLISTPREFIX + '/search', {
+      params: {
+        fireId: firebaseId
+      }
+    })
+      .then((response) => {
+        console.log(response)
+        this.knockLists = response.data.knockLists
       })
       .catch((err) => {
-        console.log('Error getting list : ', err)
+        console.log(err)
       })
   }
 }

@@ -7,6 +7,7 @@ import MyKnockListView from '@/components/templates/MyKnockListView.vue'
 import KnockDetailView from '@/components/templates/KnockDetailView'
 import UserDetailView from '@/components/templates/UserDetailView'
 import UserEditView from '@/components/templates/UserEditView'
+import SearchResultView from '@/components/templates/SearchResultView'
 
 // routeの振り分け : Knockの閲覧だけならログインする必要はない
 // Knockの作成やいいね、save機能を使いたければログインさせる
@@ -30,6 +31,10 @@ export default [{
   path: '/myKnockList',
   component: MyKnockListView,
   meta: { requiresAuth: true }
+}, {
+  path: '/searchResult',
+  component: SearchResultView,
+  meta: {requiresAuth: true}
 }, {
   path: '/login',
   component: LoginView

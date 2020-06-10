@@ -57,5 +57,8 @@ export default {
   updateKnocks: (ctx, knocks) => {
     console.log('update knocks')
     ctx.commit(types.UPDATE_KNOCKS, knocks)
+  },
+  getKnockList: (ctx, knockLists) => {
+    ctx.commit(types.GET_KNOCKLIST, knockLists)
   }
 }

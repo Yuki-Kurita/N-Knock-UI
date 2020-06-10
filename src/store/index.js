@@ -13,7 +13,8 @@ export default new Vuex.Store({
     userName: '',
     auth: false,
     list: {},
-    knocks: []
+    knocks: [],
+    knockLists: []
   },
   getters,
   actions,

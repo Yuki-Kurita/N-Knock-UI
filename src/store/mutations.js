@@ -26,5 +26,8 @@ export default{
   },
   [types.UPDATE_KNOCKS] (state, knocks) {
     state.knocks = knocks
+  },
+  [types.GET_KNOCKLIST] (state, knockLists) {
+    state.knockLists = knockLists
   }
 }
